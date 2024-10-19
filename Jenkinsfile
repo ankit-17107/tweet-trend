@@ -15,5 +15,16 @@ environment {
                 sh 'mvn clean deploy'
             }
         }
+
+        stage('SonarQube analysis'){
+            environment{
+                scannerHome= tool 'ankit17107-sonar-scanner'
+            }
+            steps{
+            withSonarQubeEnv('ankit17107-sonar-scanner'){
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+            }
+        }
     }
 }
